@@ -13,6 +13,7 @@ namespace OrderAPI.Models
         public Order Order { get; set; }
 
         public int OrderId { get; set; }
+        public int Count { get; set; }
 
 
     }
