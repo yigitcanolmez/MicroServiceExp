@@ -12,6 +12,7 @@ namespace MessageBroker
         public const string StockReservedEventQueueName = "stock-reserved-queue";
         public const string PaymentStockReservedEventQueueName = "payment-stock-reserved-queue";
         public const string OrderPaymentCompletedEventQueueName = "order-payment-completed-queue";
+        public const string OrderPaymentFailedEventQueueName = "order-payment-failed-queue";
 
 
     }

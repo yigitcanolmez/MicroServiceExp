@@ -10,9 +10,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMassTransit(x =>
 {
     x.AddConsumer<PaymentCompletedEventConsumer>();
+    x.AddConsumer<PaymentFailedEventConsumer>();
     x.UsingRabbitMq((context, conf) =>
     {
         conf.Host(builder.Configuration.GetConnectionString("RabbitMQ"));
+        conf.ReceiveEndpoint(RabbitMQSettingsConst.OrderPaymentCompletedEventQueueName, e =>
+        {
+            e.ConfigureConsumer<PaymentCompletedEventConsumer>(context);
+        }); 
         conf.ReceiveEndpoint(RabbitMQSettingsConst.OrderPaymentCompletedEventQueueName, e =>
         {
             e.ConfigureConsumer<PaymentCompletedEventConsumer>(context);
@@ -24,7 +29,7 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("Sql"));
 });
 
-builder.Services.AddMassTransitHostedService();     
+builder.Services.AddMassTransitHostedService();
 // Add services to the container
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
