@@ -35,7 +35,8 @@ namespace PaymentAPI.Consumers
                 {
                     BuyerId = context.Message.BuyerId,
                     OrderId = context.Message.OrderId,
-                    Message = "Bilinmeyen magic string hatası"
+                    Message = "Bilinmeyen magic string hatası",
+                    OrderItems = context.Message.OrderItems
                 });
 
             }
