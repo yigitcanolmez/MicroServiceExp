@@ -4,34 +4,33 @@ using OrderAPI.Repository;
 
 namespace OrderAPI.Consumer
 {
-    public class PaymentFailedEventConsumer : IConsumer<PaymentFailedEvent>
+    public class StockNotReservedEventConsumer : IConsumer<StockNotReservedEvent>
     {
         private readonly AppDbContext _appDbContext;
-        private readonly ILogger<PaymentFailedEventConsumer> _logger;
+        private readonly ILogger<StockNotReservedEventConsumer> _logger;
 
-        public PaymentFailedEventConsumer(AppDbContext appDbContext, ILogger<PaymentFailedEventConsumer> logger)
+        public StockNotReservedEventConsumer(AppDbContext appDbContext, ILogger<StockNotReservedEventConsumer> logger)
         {
             _appDbContext = appDbContext;
             _logger = logger;
         }
 
-        public async Task Consume(ConsumeContext<PaymentFailedEvent> context)
+        public async Task Consume(ConsumeContext<StockNotReservedEvent> context)
         {
             var order = await _appDbContext.Orders.FindAsync(context.Message.OrderId);
-
             if (order == null)
             {
                 order.Status = Models.OrderStatus.Fail;
                 order.FailMessage = context.Message.Message;
                 await _appDbContext.SaveChangesAsync();
 
-                _logger.LogInformation("Order incompleted because failed.");
+                _logger.LogInformation("Order stock not reserved so status failed");
+
             }
             else
             {
                 _logger.LogError("Order not found");
             }
-
         }
     }
 }
