@@ -40,8 +40,7 @@ internal class Program
             }));
         });
 
-
-
+        services.AddMassTransitHostedService();
         services.AddHostedService<Worker>();
     })
     .Build();
