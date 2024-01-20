@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentAPI", "PaymentAPI\Pa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageBroker", "MessageBroker\MessageBroker.csproj", "{45A640BB-94BD-45BA-8736-9489A6D57DD9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SagaStateMachineWorkerService", "..\Exercise\Saga-Orchestration-Pattern\SagaStateMachineWorkerService\SagaStateMachineWorkerService.csproj", "{3CD2A249-1F97-46C4-878D-C4DC69DB28E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SagaStateMachineWorkerService", "SagaStateMachineWorkerService\SagaStateMachineWorkerService.csproj", "{88FBAD1A-9CAF-4BCD-8FAA-6302C7CDD601}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{45A640BB-94BD-45BA-8736-9489A6D57DD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45A640BB-94BD-45BA-8736-9489A6D57DD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45A640BB-94BD-45BA-8736-9489A6D57DD9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3CD2A249-1F97-46C4-878D-C4DC69DB28E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CD2A249-1F97-46C4-878D-C4DC69DB28E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CD2A249-1F97-46C4-878D-C4DC69DB28E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CD2A249-1F97-46C4-878D-C4DC69DB28E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88FBAD1A-9CAF-4BCD-8FAA-6302C7CDD601}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88FBAD1A-9CAF-4BCD-8FAA-6302C7CDD601}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88FBAD1A-9CAF-4BCD-8FAA-6302C7CDD601}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88FBAD1A-9CAF-4BCD-8FAA-6302C7CDD601}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
