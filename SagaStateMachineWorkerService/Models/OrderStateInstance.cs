@@ -27,10 +27,10 @@ namespace SagaStateMachineWorkerService.Models
             foreach (var item in properties.ToList())
             {
                 var value = item.GetValue(this);
-                sb.Append($"{item.Name}:{value}");
+                sb.AppendLine($"{item.Name}:{value}");
             }
 
-            sb.Append("------------------------------");
+            sb.AppendLine("------------------------------");
 
             return sb.ToString();
         }

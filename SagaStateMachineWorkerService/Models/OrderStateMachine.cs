@@ -1,4 +1,5 @@
 ﻿using Automatonymous;
+using MessageBroker;
 using MessageBroker.Interfaces;
 
 namespace SagaStateMachineWorkerService.Models
@@ -29,7 +30,8 @@ namespace SagaStateMachineWorkerService.Models
             }).Then(context =>
             {
                 Console.WriteLine($"OrderCreatedRequestEvent before : {context.Instance.ToString()}");
-            }).TransitionTo(OrderCreated).Then(context =>
+            }).Publish(context => new OrderCreatedEvent(context.Instance.CorrelationId) { OrderItems = context.Data.OrderItems })
+            .TransitionTo(OrderCreated).Then(context =>
             {
                 Console.WriteLine($"OrderCreatedRequestEvent after : {context.Instance.ToString()}");
             }));

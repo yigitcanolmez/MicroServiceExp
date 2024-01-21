@@ -1,5 +1,7 @@
 using MassTransit;
+using MessageBroker;
 using Microsoft.EntityFrameworkCore;
+using StockAPI.Consumers;
 using StockAPI.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,10 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddMassTransit(x =>
 {
+    x.AddConsumer<OrderCreatedEventConsumer>();
+
     x.UsingRabbitMq((context, conf) =>
     {
         conf.Host(builder.Configuration.GetConnectionString("RabbitMQ"));
 
+        conf.ReceiveEndpoint(RabbitMQSettingsConst.StockOrderCreatedEventQueueName, e =>
+        {
+            e.ConfigureConsumer<OrderCreatedEventConsumer>(context);
+        });
     });
 });
 builder.Services.AddDbContext<AppDbContext>(opt =>
