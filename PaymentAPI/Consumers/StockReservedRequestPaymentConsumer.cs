@@ -1,4 +1,5 @@
 ﻿using MassTransit;
+using MessageBroker;
 using MessageBroker.Interfaces;
 
 namespace PaymentAPI.Consumers
@@ -21,10 +22,18 @@ namespace PaymentAPI.Consumers
             if (balance > context.Message.Payment.TotalPrice)
             {
                 _logger.LogInformation("context.Message.Payment.TotalPrice");
+
+                await _publishEndpoint.Publish(new PaymentSuccessedEvent(context.Message.CorrelationId));
             }
             else
             {
                 _logger.LogInformation("context.Message.Payment.TotalPrice");
+
+                await _publishEndpoint.Publish(new PaymentFailedEvent(context.Message.CorrelationId)
+                {
+                    OrderItems = context.Message.OrderItemMessages,
+                    Reason = "not enough balance"
+                });
             }
         }
     }

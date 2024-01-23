@@ -24,26 +24,26 @@ namespace StockAPI.Consumers
         {
             var stockResult = new List<bool>();
 
-            foreach (var item in context.Message.OrderItems)
-            {
-                stockResult.Add(await _context.Stocks.AnyAsync(x => x.ProductId == item.ProductId && x.Count > item.Count));
-            }
+            //foreach (var item in context.Message.OrderItems)
+            //{
+            //    stockResult.Add(await _context.Stocks.AnyAsync(x => x.ProductId == item.ProductId && x.Count > item.Count));
+            //}
 
-            if (stockResult.All(x => x.Equals(true)))
-            {
-                foreach (var item in context.Message.OrderItems)
-                {
-                    var stock = await _context.Stocks.FirstOrDefaultAsync(x => x.ProductId == item.ProductId);
+            //if (stockResult.All(x => x.Equals(true)))
+            //{
+            //    foreach (var item in context.Message.OrderItems)
+            //    {
+            //        var stock = await _context.Stocks.FirstOrDefaultAsync(x => x.ProductId == item.ProductId);
 
-                    if (stock != null)
-                    {
-                        stock.Count -= item.Count;
-                    }
+            //        if (stock != null)
+            //        {
+            //            stock.Count -= item.Count;
+            //        }
 
-                    await _context.SaveChangesAsync();
-                }
+            //        await _context.SaveChangesAsync();
+            //    }
 
-                _logger.LogInformation($"Stock was reserved for Correlation Id :{context.Message.CorrelationId}");
+            _logger.LogInformation($"Stock was reserved for Correlation Id :{context.Message.CorrelationId}");
 
                 StockReservedEvent stockReservedEvent = new StockReservedEvent(context.Message.CorrelationId)
                 {
@@ -51,16 +51,16 @@ namespace StockAPI.Consumers
                 };
 
                 await _publishEndpoint.Publish(stockReservedEvent);
-            }
-            else
-            {
-                await _publishEndpoint.Publish(new StockNotReservedEvent(context.Message.CorrelationId)
-                {
-                    Message = "Not enough stock"
-                });
+            //}
+            //else
+            //{
+            //    await _publishEndpoint.Publish(new StockNotReservedEvent(context.Message.CorrelationId)
+            //    {
+            //        Message = "Not enough stock"
+            //    });
 
-                _logger.LogInformation($"Not enough stock for Correlation Id :{context.Message.CorrelationId}");
-            }
+            //    _logger.LogInformation($"Not enough stock for Correlation Id :{context.Message.CorrelationId}");
+            //}
         }
     }
 }
