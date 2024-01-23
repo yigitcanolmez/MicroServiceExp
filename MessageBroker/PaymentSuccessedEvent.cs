@@ -1,8 +1,14 @@
-﻿namespace MessageBroker
+﻿using MessageBroker.Interfaces;
+
+namespace MessageBroker
 {
-    public class PaymentSuccessedEvent
+    public class PaymentSuccessedEvent : IPaymentCompletedEvent
     {
-        public int OrderId { get; set; }
-        public string BuyerId { get; set; }
-    }  
+        public PaymentSuccessedEvent(Guid CorrelationId)
+        {
+            this.CorrelationId = CorrelationId;
+        }
+
+        public Guid CorrelationId { get; }
+    }
 }

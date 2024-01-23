@@ -1,10 +1,15 @@
-﻿namespace MessageBroker
+﻿using MessageBroker.Interfaces;
+
+namespace MessageBroker
 {
-    public class PaymentFailedEvent
+    public class PaymentFailedEvent : IPaymentFailedEvent
     {
-        public int OrderId { get; set; }
-        public string BuyerId { get; set; }
-        public string Message { get; set; }
+        public PaymentFailedEvent(Guid CorrelationId)
+        {
+            this.CorrelationId = CorrelationId;
+        }
+        public string Reason { get; set; }
+        public Guid CorrelationId { get; }
         public List<OrderItemMessage> OrderItems { get; set; }
     }
 }
